@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.example.org/GrapesWSDL2/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="GrapesWSDL2" targetNamespace="http://www.example.org/GrapesWSDL2/">
+<wsdl:types>
+<xsd:schema xmlns:Q1="http://www.example.org/grapes" targetNamespace="http://www.example.org/GrapesWSDL2/">
+<xsd:import namespace="http://www.example.org/grapes" schemaLocation="grapes.xsd"/>
+<xsd:element name="CheckAvailability">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="grape_id" type="xsd:int"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="CheckAvailabilityResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="unbounded" minOccurs="1" name="out" type="Q1:AvailableResponseXSD"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="CreateOrder">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="order" type="Q1:OrderInfoType"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="CreateOrderResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="out" type="xsd:boolean"/>
+<xsd:element name="message" type="xsd:string"/>
+<xsd:element name="order_id" type="xsd:int"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="CancelOrder">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="order_id" type="xsd:int"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="CancelOrderResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="out" type="xsd:boolean"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="ConfirmOrder">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="order_id" type="xsd:int"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="ConfirmOrderResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="out" type="xsd:boolean"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="CheckOrder">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="order_id" type="xsd:int"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="CheckOrderResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="order" type="Q1:OrderType"/>
+<xsd:element maxOccurs="unbounded" minOccurs="1" name="order_product" type="Q1:OrderDetailType"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="EditOrder">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="order" type="Q1:OrderInfoType"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="EditOrderResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="out" type="xsd:boolean"/>
+<xsd:element name="message" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="CheckOrderStatus">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="order_id" type="xsd:int"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="CheckOrderStatusResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="status" type="xsd:int"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="addStock">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="unbounded" minOccurs="1" name="in" type="Q1:StockType"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="addStockResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="out" type="xsd:boolean"/>
+<xsd:element name="message" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="CheckOrderPerCustomer">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="customer_id" type="xsd:int"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="CheckOrderPerCustomerResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="unbounded" minOccurs="1" name="orders" type="Q1:OrdersByCustomerType"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="CheckAllOrders">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="in" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="CheckAllOrdersResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="unbounded" minOccurs="1" name="orders" type="Q1:OrdersByCustomerType"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="EditOrderStatus">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="order_id" type="xsd:int"/>
+<xsd:element name="status" type="xsd:int"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="EditOrderStatusResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="out" type="xsd:boolean"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="EditOrderShipping">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="order_id" type="xsd:int"/>
+<xsd:element name="shipping" type="xsd:double"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="EditOrderShippingResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="out" type="xsd:boolean"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+</xsd:schema>
+</wsdl:types>
+<wsdl:message name="EditOrderShippingResponse">
+<wsdl:part name="parameters" element="tns:EditOrderShippingResponse"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="CheckOrderPerCustomerRequest">
+<wsdl:part name="parameters" element="tns:CheckOrderPerCustomer"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="addStockRequest">
+<wsdl:part name="parameters" element="tns:addStock"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="CreateOrderRequest">
+<wsdl:part name="parameters" element="tns:CreateOrder"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="CheckAllOrdersRequest">
+<wsdl:part name="parameters" element="tns:CheckAllOrders"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="CheckOrderPerCustomerResponse">
+<wsdl:part name="parameters" element="tns:CheckOrderPerCustomerResponse"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="addStockResponse">
+<wsdl:part name="parameters" element="tns:addStockResponse"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="CheckAllOrdersResponse">
+<wsdl:part name="parameters" element="tns:CheckAllOrdersResponse"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="CheckOrderRequest">
+<wsdl:part name="parameters" element="tns:CheckOrder"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="EditOrderStatusResponse">
+<wsdl:part name="parameters" element="tns:EditOrderStatusResponse"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="CheckOrderResponse">
+<wsdl:part name="parameters" element="tns:CheckOrderResponse"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="CancelOrderResponse">
+<wsdl:part name="parameters" element="tns:CancelOrderResponse"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="ConfirmOrderRequest">
+<wsdl:part name="parameters" element="tns:ConfirmOrder"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="ConfirmOrderResponse">
+<wsdl:part name="parameters" element="tns:ConfirmOrderResponse"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="EditOrderStatusRequest">
+<wsdl:part name="parameters" element="tns:EditOrderStatus"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="EditOrderRequest">
+<wsdl:part name="parameters" element="tns:EditOrder"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="EditOrderResponse">
+<wsdl:part name="parameters" element="tns:EditOrderResponse"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="CheckAvailabilityResponse">
+<wsdl:part name="parameters" element="tns:CheckAvailabilityResponse"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="EditOrderShippingRequest">
+<wsdl:part name="parameters" element="tns:EditOrderShipping"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="CheckAvailabilityRequest">
+<wsdl:part name="parameters" element="tns:CheckAvailability"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="CheckOrderStatusRequest">
+<wsdl:part name="parameters" element="tns:CheckOrderStatus"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="CheckOrderStatusResponse">
+<wsdl:part name="parameters" element="tns:CheckOrderStatusResponse"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="CancelOrderRequest">
+<wsdl:part name="parameters" element="tns:CancelOrder"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="CreateOrderResponse">
+<wsdl:part name="parameters" element="tns:CreateOrderResponse"></wsdl:part>
+</wsdl:message>
+<wsdl:portType name="GrapesWSDL2">
+<wsdl:operation name="CheckAvailability">
+<wsdl:input message="tns:CheckAvailabilityRequest"></wsdl:input>
+<wsdl:output message="tns:CheckAvailabilityResponse"></wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="CreateOrder">
+<wsdl:input message="tns:CreateOrderRequest"></wsdl:input>
+<wsdl:output message="tns:CreateOrderResponse"></wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="CancelOrder">
+<wsdl:input message="tns:CancelOrderRequest"></wsdl:input>
+<wsdl:output message="tns:CancelOrderResponse"></wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ConfirmOrder">
+<wsdl:input message="tns:ConfirmOrderRequest"></wsdl:input>
+<wsdl:output message="tns:ConfirmOrderResponse"></wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="CheckOrder">
+<wsdl:input message="tns:CheckOrderRequest"></wsdl:input>
+<wsdl:output message="tns:CheckOrderResponse"></wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="EditOrder">
+<wsdl:input message="tns:EditOrderRequest"></wsdl:input>
+<wsdl:output message="tns:EditOrderResponse"></wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="CheckOrderStatus">
+<wsdl:input message="tns:CheckOrderStatusRequest"></wsdl:input>
+<wsdl:output message="tns:CheckOrderStatusResponse"></wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="addStock">
+<wsdl:input message="tns:addStockRequest"></wsdl:input>
+<wsdl:output message="tns:addStockResponse"></wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="CheckOrderPerCustomer">
+<wsdl:input message="tns:CheckOrderPerCustomerRequest"></wsdl:input>
+<wsdl:output message="tns:CheckOrderPerCustomerResponse"></wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="CheckAllOrders">
+<wsdl:input message="tns:CheckAllOrdersRequest"></wsdl:input>
+<wsdl:output message="tns:CheckAllOrdersResponse"></wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="EditOrderStatus">
+<wsdl:input message="tns:EditOrderStatusRequest"></wsdl:input>
+<wsdl:output message="tns:EditOrderStatusResponse"></wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="EditOrderShipping">
+<wsdl:input message="tns:EditOrderShippingRequest"></wsdl:input>
+<wsdl:output message="tns:EditOrderShippingResponse"></wsdl:output>
+</wsdl:operation>
+</wsdl:portType>
+<wsdl:binding name="GrapesWSDL2SOAP" type="tns:GrapesWSDL2">
+<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+<wsdl:operation name="CheckAvailability">
+<soap:operation soapAction="http://www.example.org/GrapesWSDL2/CheckAvailability"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="CreateOrder">
+<soap:operation soapAction="http://www.example.org/GrapesWSDL2/CreateOrder"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="CancelOrder">
+<soap:operation soapAction="http://www.example.org/GrapesWSDL2/CancelOrder"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ConfirmOrder">
+<soap:operation soapAction="http://www.example.org/GrapesWSDL2/ConfirmOrder"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="CheckOrder">
+<soap:operation soapAction="http://www.example.org/GrapesWSDL2/CheckOrder"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="EditOrder">
+<soap:operation soapAction="http://www.example.org/GrapesWSDL2/EditOrder"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="CheckOrderStatus">
+<soap:operation soapAction="http://www.example.org/GrapesWSDL2/CheckOrderStatus"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="addStock">
+<soap:operation soapAction="http://www.example.org/GrapesWSDL2/addStock"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="CheckOrderPerCustomer">
+<soap:operation soapAction="http://www.example.org/GrapesWSDL2/CheckOrderPerCustomer"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="CheckAllOrders">
+<soap:operation soapAction="http://www.example.org/GrapesWSDL2/CheckAllOrders"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="EditOrderStatus">
+<soap:operation soapAction="http://www.example.org/GrapesWSDL2/EditOrderStatus"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="EditOrderShipping">
+<soap:operation soapAction="http://www.example.org/GrapesWSDL2/EditOrderShipping"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:service name="GrapesWSDL2">
+<wsdl:port name="GrapesWSDL2SOAP" binding="tns:GrapesWSDL2SOAP">
+<soap:address location="http://imse.sorenna.lv:8080/Wine/services/GrapesWSDL2/"/>
+</wsdl:port>
+</wsdl:service>
+</wsdl:definitions>

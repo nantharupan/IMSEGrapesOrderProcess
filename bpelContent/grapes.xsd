@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.example.org/grapes" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.example.org/grapes">
+<complexType name="AvailableResponseXSD">
+<sequence>
+<element name="grapes_id" type="int"/>
+<element name="name" type="string"/>
+<element name="region" type="string"/>
+<element name="price" type="double"/>
+<element name="availability" type="int"/>
+</sequence>
+</complexType>
+<element name="AvailabilityResponse" type="tns:AvailableResponseXSD"/>
+<complexType name="StockType">
+<sequence>
+<element name="grapes_id" type="int"/>
+<element name="stock" type="int"/>
+</sequence>
+</complexType>
+<element name="StockElement" type="tns:StockType"/>
+<complexType name="OrderDetailType">
+<sequence>
+<element minOccurs="0" name="order_id" type="int"/>
+<element name="grapes_id" type="int"/>
+<element name="quantity" type="int"/>
+<element minOccurs="0" name="price" type="double"/>
+</sequence>
+</complexType>
+<element name="OrderDetailElement" type="tns:OrderDetailType"/>
+<complexType name="OrderType">
+<sequence>
+<element minOccurs="0" name="order_id" type="int"/>
+<element minOccurs="0" name="customer_id" type="int"/>
+<element minOccurs="0" name="status" type="int"/>
+<element minOccurs="0" name="subtotal" type="double"/>
+<element minOccurs="0" name="shipping" type="double"/>
+<element minOccurs="0" name="total" type="double"/>
+</sequence>
+</complexType>
+<element name="OrderElement" type="tns:OrderType"/>
+<complexType name="OrderInfoType">
+<sequence>
+<element name="order" type="tns:OrderType"/>
+<element maxOccurs="unbounded" name="orderDetail" type="tns:OrderDetailType"/>
+</sequence>
+</complexType>
+<element name="OrderInfoElement" type="tns:OrderInfoType"/>
+<complexType name="OrdersByCustomerType">
+<sequence>
+<element name="order" type="tns:OrderType"/>
+<element maxOccurs="unbounded" name="orderDetail" type="tns:OrderDetailType"/>
+</sequence>
+</complexType>
+<element name="OrdersByCustomerElement" type="tns:OrdersByCustomerType"/>
+</schema>

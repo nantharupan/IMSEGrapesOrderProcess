@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl3="http://www.example.org/Bank/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl2="http://www.example.org/TCService2/" xmlns:wsdl1="http://www.example.org/TCService/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:tns="http://eclipse.org/bpel/sample" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:p="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.example.org/grapes" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://eclipse.org/bpel/sample">
+<wsdl:types>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:Q1="http://www.example.org/grapes" xmlns:wsdl="http://www.example.org/GrapesWSDL/" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://eclipse.org/bpel/sample">
+<import namespace="http://www.example.org/grapes" schemaLocation="grapes.xsd"/>
+<element name="IMSEGrapesRequest">
+<complexType>
+<sequence>
+<element name="NewElement" type="Q1:OrderInfoType"/>
+</sequence>
+</complexType>
+</element>
+<element name="IMSEGrapesResponse">
+<complexType>
+<sequence>
+<element name="orderid" type="int"/>
+<element name="status" type="boolean"/>
+<element name="orderdetails" type="Q1:OrderType"/>
+</sequence>
+</complexType>
+</element>
+<element name="setShippingAddress">
+<complexType>
+<sequence>
+<element name="address" type="string"/>
+<element name="orderid" type="int"/>
+</sequence>
+</complexType>
+</element>
+<element name="setShippingAddressResponse">
+<complexType>
+<sequence>
+<element name="status" type="boolean"/>
+<element name="order" type="Q1:OrderType"/>
+</sequence>
+</complexType>
+</element>
+<element name="doPayment">
+<complexType>
+<sequence>
+<element name="name" type="string"/>
+<element name="cardnumber" type="int"/>
+<element name="securitynumbe" type="int"/>
+<element name="orderid" type="int"/>
+</sequence>
+</complexType>
+</element>
+<element name="doPaymentResponse">
+<complexType>
+<sequence>
+<element name="status" type="boolean"/>
+</sequence>
+</complexType>
+</element>
+<element name="checkStatus">
+<complexType>
+<sequence>
+<element name="orderid" type="int"/>
+</sequence>
+</complexType>
+</element>
+<element name="checkStatusResponse">
+<complexType>
+<sequence>
+<element name="status" type="int"/>
+</sequence>
+</complexType>
+</element>
+<element name="cancelOrder">
+<complexType>
+<sequence>
+<element name="orderid" type="int"/>
+</sequence>
+</complexType>
+</element>
+<element name="cancelOrderResponse">
+<complexType>
+<sequence>
+<element name="status" type="boolean"/>
+</sequence>
+</complexType>
+</element>
+<element name="alterOrder">
+<complexType>
+<sequence>
+<element name="in" type="string"/>
+</sequence>
+</complexType>
+</element>
+<element name="alterOrderResponse">
+<complexType>
+<sequence>
+<element name="out" type="string"/>
+</sequence>
+</complexType>
+</element>
+<element name="confirmGrapesOrder">
+<complexType>
+<sequence>
+<element name="orderid" type="int"/>
+</sequence>
+</complexType>
+</element>
+<element name="confirmGrapesOrderResponse">
+<complexType>
+<sequence>
+<element name="status" type="boolean"/>
+</sequence>
+</complexType>
+</element>
+<element name="getInvoice">
+<complexType>
+<sequence>
+<element name="orderid" type="int"/>
+</sequence>
+</complexType>
+</element>
+<element name="getInvoiceResponse">
+<complexType>
+<sequence>
+<element name="order" type="Q1:OrderType"/>
+</sequence>
+</complexType>
+</element>
+</schema>
+<p:schema xmlns:Q1="http://www.example.org/grapes" xmlns:tns="http://www.example.org/GrapesWSDL/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://www.example.org/GrapesWSDL/">
+<p:import namespace="http://www.example.org/grapes" schemaLocation="grapes.xsd"/>
+<p:element name="CheckAvailability">
+<p:complexType>
+<p:sequence>
+<p:element minOccurs="0" name="grape_id" type="p:int"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="CheckAvailabilityResponse">
+<p:complexType>
+<p:sequence>
+<p:element maxOccurs="unbounded" name="out" type="Q1:AvailableResponseXSD"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="CreateOrder">
+<p:complexType>
+<p:sequence>
+<p:element minOccurs="0" name="order" type="Q1:OrderInfoType"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="CreateOrderResponse">
+<p:complexType>
+<p:sequence>
+<p:element name="out" type="p:boolean"/>
+<p:element name="message" type="p:string"/>
+<p:element name="order_id" type="p:int"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="CancelOrder">
+<p:complexType>
+<p:sequence>
+<p:element name="order_id" type="p:int"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="CancelOrderResponse">
+<p:complexType>
+<p:sequence>
+<p:element name="out" type="p:boolean"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="ConfirmOrder">
+<p:complexType>
+<p:sequence>
+<p:element name="order_id" type="p:int"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="ConfirmOrderResponse">
+<p:complexType>
+<p:sequence>
+<p:element name="out" type="p:boolean"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="CheckOrder">
+<p:complexType>
+<p:sequence>
+<p:element name="order_id" type="p:int"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="CheckOrderResponse">
+<p:complexType>
+<p:sequence>
+<p:element name="order" type="Q1:OrderType"/>
+<p:element maxOccurs="unbounded" name="order_product" type="Q1:OrderDetailType"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="EditOrder">
+<p:complexType>
+<p:sequence>
+<p:element name="order" type="Q1:OrderType"/>
+<p:element maxOccurs="unbounded" minOccurs="0" name="order_product" type="Q1:OrderDetailType"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="EditOrderResponse">
+<p:complexType>
+<p:sequence>
+<p:element name="out" type="p:boolean"/>
+<p:element name="message" type="p:string"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="CheckOrderStatus">
+<p:complexType>
+<p:sequence>
+<p:element name="order_id" type="p:int"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="CheckOrderStatusResponse">
+<p:complexType>
+<p:sequence>
+<p:element name="status" type="p:int"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="addStock">
+<p:complexType>
+<p:sequence>
+<p:element maxOccurs="unbounded" name="in" type="Q1:StockType"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="addStockResponse">
+<p:complexType>
+<p:sequence>
+<p:element name="out" type="p:boolean"/>
+<p:element name="message" type="p:string"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="CheckOrderPerCustomer">
+<p:complexType>
+<p:sequence>
+<p:element name="customer_id" type="p:int"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="CheckOrderPerCustomerResponse">
+<p:complexType>
+<p:sequence>
+<p:element maxOccurs="unbounded" name="orders" type="Q1:OrdersByCustomerType"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="CheckAllOrders">
+<p:complexType>
+<p:sequence>
+<p:element name="in" type="p:string"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="CheckAllOrdersResponse">
+<p:complexType>
+<p:sequence>
+<p:element maxOccurs="unbounded" name="orders" type="Q1:OrdersByCustomerType"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="EditOrderStatus">
+<p:complexType>
+<p:sequence>
+<p:element name="order_id" type="p:int"/>
+<p:element name="status" type="p:int"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="EditOrderStatusResponse">
+<p:complexType>
+<p:sequence>
+<p:element name="out" type="p:boolean"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="EditOrderShipping">
+<p:complexType>
+<p:sequence>
+<p:element name="order_id" type="p:int"/>
+<p:element name="shipping" type="p:double"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="EditOrderShippingResponse">
+<p:complexType>
+<p:sequence>
+<p:element name="out" type="p:boolean"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+</p:schema>
+<p:schema xmlns:tns="http://www.example.org/Bank/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://www.example.org/Bank/">
+<p:element name="Payment">
+<p:complexType>
+<p:sequence>
+<p:element name="cardnumber" type="p:double"/>
+<p:element name="securitynumber" type="p:int"/>
+<p:element name="cardholdername" type="p:string"/>
+<p:element name="amount" type="p:double"/>
+<p:element name="accounttodeposite" type="p:int"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="PaymentResponse">
+<p:complexType>
+<p:sequence>
+<p:element name="out" type="p:boolean"/>
+<p:element name="message" type="p:string"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="Compensate">
+<p:complexType>
+<p:sequence>
+<p:element name="accountnumber" type="p:double"/>
+<p:element name="amount" type="p:double"/>
+<p:element name="tobecompensatednumber" type="p:double"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="CompensateResponse">
+<p:complexType>
+<p:sequence>
+<p:element name="out" type="p:boolean"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+</p:schema>
+<p:schema xmlns:tns="http://www.example.org/TCService2/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://www.example.org/TCService2/">
+<p:element name="QueryQuote">
+<p:complexType>
+<p:sequence>
+<p:element name="location" type="p:string"/>
+<p:element name="weight" type="p:double"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="QueryQuoteResponse">
+<p:complexType>
+<p:sequence>
+<p:element name="cost" type="p:double"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="ConfirmShipment">
+<p:complexType>
+<p:sequence>
+<p:element name="location" type="p:string"/>
+<p:element name="address" type="p:string"/>
+<p:element name="orderid" type="p:int"/>
+<p:element name="weight" type="p:double"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="ConfirmShipmentResponse">
+<p:complexType>
+<p:sequence>
+<p:element name="out" type="p:boolean"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+</p:schema>
+<p:schema xmlns:tns="http://www.example.org/TCService/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://www.example.org/TCService/">
+<p:element name="QueryQuote">
+<p:complexType>
+<p:sequence>
+<p:element name="location" type="p:string"/>
+<p:element name="weight" type="p:double"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="QueryQuoteResponse">
+<p:complexType>
+<p:sequence>
+<p:element name="cost" type="p:double"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="ConfirmShipment">
+<p:complexType>
+<p:sequence>
+<p:element name="location" type="p:string"/>
+<p:element name="address" type="p:string"/>
+<p:element name="orderid" type="p:int"/>
+<p:element name="weight" type="p:double"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+<p:element name="ConfirmShipmentResponse">
+<p:complexType>
+<p:sequence>
+<p:element name="out" type="p:boolean"/>
+</p:sequence>
+</p:complexType>
+</p:element>
+</p:schema>
+</wsdl:types>
+<wsdl:message name="setShippingAddressRequest">
+<wsdl:part name="parameters" element="tns:setShippingAddress"/>
+</wsdl:message>
+<wsdl:message name="setShippingAddressResponse">
+<wsdl:part name="parameters" element="tns:setShippingAddressResponse"/>
+</wsdl:message>
+<wsdl:message name="getInvoiceRequest">
+<wsdl:part name="parameters" element="tns:getInvoice"/>
+</wsdl:message>
+<wsdl:message name="getInvoiceResponse">
+<wsdl:part name="parameters" element="tns:getInvoiceResponse"/>
+</wsdl:message>
+<wsdl:message name="doPaymentRequest">
+<wsdl:part name="parameters" element="tns:doPayment"/>
+</wsdl:message>
+<wsdl:message name="doPaymentResponse">
+<wsdl:part name="parameters" element="tns:doPaymentResponse"/>
+</wsdl:message>
+<wsdl:message name="IMSEGrapesRequestMessage">
+<wsdl:part name="payload" element="tns:IMSEGrapesRequest"/>
+</wsdl:message>
+<wsdl:message name="IMSEGrapesResponseMessage">
+<wsdl:part name="payload" element="tns:IMSEGrapesResponse"/>
+</wsdl:message>
+<wsdl:message name="checkStatusRequest">
+<wsdl:part name="parameters" element="tns:checkStatus"/>
+</wsdl:message>
+<wsdl:message name="checkStatusResponse">
+<wsdl:part name="parameters" element="tns:checkStatusResponse"/>
+</wsdl:message>
+<wsdl:message name="confirmGrapesOrderRequest">
+<wsdl:part name="parameters" element="tns:confirmGrapesOrder"/>
+</wsdl:message>
+<wsdl:message name="confirmGrapesOrderResponse">
+<wsdl:part name="parameters" element="tns:confirmGrapesOrderResponse"/>
+</wsdl:message>
+<wsdl:message name="alterOrderRequest">
+<wsdl:part name="parameters" element="tns:alterOrder"/>
+</wsdl:message>
+<wsdl:message name="alterOrderResponse">
+<wsdl:part name="parameters" element="tns:alterOrderResponse"/>
+</wsdl:message>
+<wsdl:message name="cancelOrderRequest">
+<wsdl:part name="parameters" element="tns:cancelOrder"/>
+</wsdl:message>
+<wsdl:message name="cancelOrderResponse">
+<wsdl:part name="parameters" element="tns:cancelOrderResponse"/>
+</wsdl:message>
+<wsdl:portType name="IMSEGrapesPortType">
+<wsdl:operation name="setShippingAddress">
+<wsdl:input message="tns:setShippingAddressRequest" wsaw:Action="http://eclipse.org/bpel/sample/setShippingAddress"/>
+<wsdl:output message="tns:setShippingAddressResponse" wsaw:Action="http://eclipse.org/bpel/sample/IMSEGrapes/setShippingAddressResponse"/>
+</wsdl:operation>
+<wsdl:operation name="getInvoice">
+<wsdl:input message="tns:getInvoiceRequest" wsaw:Action="http://eclipse.org/bpel/sample/getInvoice"/>
+<wsdl:output message="tns:getInvoiceResponse" wsaw:Action="http://eclipse.org/bpel/sample/IMSEGrapes/getInvoiceResponse"/>
+</wsdl:operation>
+<wsdl:operation name="doPayment">
+<wsdl:input message="tns:doPaymentRequest" wsaw:Action="http://eclipse.org/bpel/sample/doPayment"/>
+<wsdl:output message="tns:doPaymentResponse" wsaw:Action="http://eclipse.org/bpel/sample/IMSEGrapes/doPaymentResponse"/>
+</wsdl:operation>
+<wsdl:operation name="createGrapesOrder">
+<wsdl:input message="tns:IMSEGrapesRequestMessage" wsaw:Action="http://eclipse.org/bpel/sample/createGrapesOrder"/>
+<wsdl:output message="tns:IMSEGrapesResponseMessage" wsaw:Action="http://eclipse.org/bpel/sample/IMSEGrapes/createGrapesOrderResponse"/>
+</wsdl:operation>
+<wsdl:operation name="checkStatus">
+<wsdl:input message="tns:checkStatusRequest" wsaw:Action="http://eclipse.org/bpel/sample/checkStatus"/>
+<wsdl:output message="tns:checkStatusResponse" wsaw:Action="http://eclipse.org/bpel/sample/IMSEGrapes/checkStatusResponse"/>
+</wsdl:operation>
+<wsdl:operation name="confirmGrapesOrder">
+<wsdl:input message="tns:confirmGrapesOrderRequest" wsaw:Action="http://eclipse.org/bpel/sample/confirmGrapesOrder"/>
+<wsdl:output message="tns:confirmGrapesOrderResponse" wsaw:Action="http://eclipse.org/bpel/sample/IMSEGrapes/confirmGrapesOrderResponse"/>
+</wsdl:operation>
+<wsdl:operation name="alterOrder">
+<wsdl:input message="tns:alterOrderRequest" wsaw:Action="http://eclipse.org/bpel/sample/alterOrder"/>
+<wsdl:output message="tns:alterOrderResponse" wsaw:Action="http://eclipse.org/bpel/sample/IMSEGrapes/alterOrderResponse"/>
+</wsdl:operation>
+<wsdl:operation name="cancelOrder">
+<wsdl:input message="tns:cancelOrderRequest" wsaw:Action="http://eclipse.org/bpel/sample/cancelOrder"/>
+<wsdl:output message="tns:cancelOrderResponse" wsaw:Action="http://eclipse.org/bpel/sample/IMSEGrapes/cancelOrderResponse"/>
+</wsdl:operation>
+</wsdl:portType>
+	<wsdl:binding name="IMSEGrapesBinding"
+		type="tns:IMSEGrapesPortType">
+
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="setShippingAddress">
+
+			<soap:operation
+				soapAction="http://eclipse.org/bpel/sample/setShippingAddress" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getInvoice">
+
+			<soap:operation
+				soapAction="http://eclipse.org/bpel/sample/getInvoice" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="doPayment">
+
+			<soap:operation
+				soapAction="http://eclipse.org/bpel/sample/doPayment" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createGrapesOrder">
+
+			<soap:operation
+				soapAction="http://eclipse.org/bpel/sample/createGrapesOrder" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="checkStatus">
+
+			<soap:operation
+				soapAction="http://eclipse.org/bpel/sample/checkStatus" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="confirmGrapesOrder">
+
+			<soap:operation
+				soapAction="http://eclipse.org/bpel/sample/confirmGrapesOrder" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="alterOrder">
+
+			<soap:operation
+				soapAction="http://eclipse.org/bpel/sample/alterOrder" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="cancelOrder">
+
+			<soap:operation
+				soapAction="http://eclipse.org/bpel/sample/cancelOrder" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IMSEGrapes">
+<wsdl:port name="IMSEGrapesPort" binding="tns:IMSEGrapesBinding">
+<soap:address location="http://imse.sorenna.lv:8080/ode/processes/IMSEGrapes"/>
+</wsdl:port>
+</wsdl:service>
+</wsdl:definitions>
